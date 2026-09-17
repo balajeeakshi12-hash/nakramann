@@ -1,0 +1,109 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You ❤️</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        canvas {
+            display: block;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="heartCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById("heartCanvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Start with the same idea as your Turtle code
+    let scale = 11;
+    let i = 0;
+
+    const totalPoints = 120;
+    const maxScale = 16;
+
+    // Centre the heart on the screen
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = "bold 8px Arial";
+    ctx.fillStyle = "#ffb6c1";
+
+    function draw() {
+
+        if (scale > maxScale) {
+            return;
+        }
+
+        // Same calculation as your Python code
+        const angle = i * (Math.PI * 2) / 120;
+
+        const x =
+            16 * Math.pow(Math.sin(angle), 3) * scale;
+
+        const y =
+            (
+                13 * Math.cos(angle)
+                - 5 * Math.cos(2 * angle)
+                - 2 * Math.cos(3 * angle)
+                - Math.cos(4 * angle)
+            ) * scale;
+
+        // Move to the calculated position
+        const screenX = centerX + x;
+        const screenY = centerY - y;
+
+        // Write "I love you" just like Turtle
+        ctx.fillText("I love you", screenX, screenY);
+
+        i++;
+
+        // Once 120 points are completed, move to the next scale
+        if (i >= totalPoints) {
+            i = 0;
+            scale++;
+        }
+
+        // Slow down the drawing slightly so you can see it forming
+        setTimeout(draw, 8);
+    }
+
+    // Start with a completely empty black screen
+    setTimeout(draw, 500);
+
+    // Keep it centred if the window changes size
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = "bold 8px Arial";
+        ctx.fillStyle = "#ffb6c1";
+    });
+</script>
+
+</body>
+</html>
+```
